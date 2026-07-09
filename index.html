@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oreange | personal portal</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            50: '#F8F9FA',
+                            100: '#F1F3F5',
+                            200: '#E9ECEF',
+                            300: '#DEE2E6',
+                            400: '#CED4DA',
+                            750: '#495057',
+                            800: '#343A40',
+                            900: '#212529',
+                        },
+                        oreange: {
+                            DEFAULT: '#FF6B00',
+                            50: '#FFF2E6',
+                            100: '#FFE5CC',
+                            200: '#FFC699',
+                            300: '#FFA766',
+                            400: '#FF8933',
+                            500: '#FF6B00',
+                            600: '#CC5600',
+                            700: '#994000',
+                            800: '#662B00',
+                            900: '#331500',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FFFFFF;
+            overflow-x: hidden;
+        }
+        
+        .glow-effect {
+            position: relative;
+        }
+        .glow-effect::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.08);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .glow-effect:hover::before {
+            opacity: 1;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFFFFF;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E9ECEF;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF6B00;
+        }
+
+        /* Ambient glowing background blobs - soft pastel for white theme */
+        .ambient-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.12;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col justify-between relative selection:bg-oreange selection:text-white">
+
+    <!-- Ambient soft background glows -->
+    <div class="ambient-blob bg-oreange w-[350px] h-[350px] -top-20 -left-20"></div>
+    <div class="ambient-blob bg-oreange-300 w-[450px] h-[450px] top-1/2 -right-40 -translate-y-1/2"></div>
+    <div class="ambient-blob bg-oreange-200 w-[300px] h-[300px] -bottom-20 left-1/4"></div>
+
+    <!-- Main Container -->
+    <main class="relative z-10 max-w-xl mx-auto px-6 py-20 w-full flex-grow flex flex-col justify-center">
+
+        <!-- Profile Section -->
+        <div class="text-center mb-10">
+            <div class="relative inline-block group">
+                <!-- Profile Glow Ring -->
+                <div class="absolute -inset-1 bg-gradient-to-r from-oreange to-amber-400 rounded-full blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
+                
+                <!-- Profile Image Container -->
+                <div class="relative w-28 h-28 rounded-full overflow-hidden bg-white border-2 border-slate-200 p-1">
+                    <!-- Standard pfp.png image. On error, fallback to an exquisite inline SVG pfp avatar -->
+                    <img 
+                        src="pfp.png" 
+                        alt="oreange" 
+                        class="w-full h-full object-cover rounded-full"
+                        onerror="this.style.display='none'; document.getElementById('svg-pfp').classList.remove('hidden');"
+                    />
+                    <!-- Fallback SVG -->
+                    <div id="svg-pfp" class="hidden w-full h-full flex items-center justify-center bg-gradient-to-tr from-slate-50 to-slate-100 rounded-full">
+                        <svg class="w-16 h-16 text-oreange" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="45" r="22" fill="url(#pfp-grad)" />
+                            <path d="M50 15C52 15 51 25 51 25" stroke="#FFA766" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M51 25C51 25 58 20 62 23C66 26 60 31 56 31" stroke="#FFA766" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M20 85C20 70 30 65 50 65C70 65 80 70 80 85" stroke="url(#pfp-grad)" stroke-width="5" stroke-linecap="round"/>
+                            <defs>
+                                <linearGradient id="pfp-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#FF6B00" />
+                                    <stop offset="100%" stop-color="#FFA766" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <h1 class="text-3xl font-black tracking-tight mt-6 text-slate-900 lowercase">
+                ore<span class="text-oreange">ange</span>
+            </h1>
+            <p class="text-slate-500 mt-4 max-w-md mx-auto text-[14px] leading-relaxed lowercase">
+                heya! i'm an animator who loves to animate! i code aswell here and there.
+            </p>
+        </div>
+
+        <!-- Social Buttons Grid -->
+        <div class="space-y-4">
+            
+            <!-- Discord Link -->
+            <a href="https://discord.gg/" target="_blank" rel="noopener noreferrer" class="glow-effect flex items-center justify-between p-4 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-oreange hover:bg-white transition-all duration-300 group shadow-sm">
+                <div class="flex items-center gap-4">
+                    <div class="p-3 rounded-xl bg-[#5865F2]/10 text-[#5865F2] group-hover:scale-105 transition-transform duration-300">
+                        <svg class="h-5 w-5 fill-current" viewBox="0 0 127.14 96.36" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53a105.73,105.73,0,0,0,32,16.15,77.7,77.7,0,0,0,6.83-11.1,68.52,68.52,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.65-2a75.58,75.58,0,0,0,71,0c.85.71,1.74,1.39,2.65,2a68.52,68.52,0,0,1-10.85,5.18,77.7,77.7,0,0,0,6.83,11.1,105.73,105.73,0,0,0,32-16.15C130.66,47.55,124.57,24.77,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-sm group-hover:text-oreange transition-colors lowercase">join my discord</h3>
+                        <p class="text-xs text-slate-500 lowercase">hang out and chat with me.</p>
+                    </div>
+                </div>
+                <div class="text-slate-400 group-hover:text-oreange group-hover:translate-x-1 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </a>
+
+            <!-- YouTube Link -->
+            <a href="https://youtube.com/" target="_blank" rel="noopener noreferrer" class="glow-effect flex items-center justify-between p-4 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-oreange hover:bg-white transition-all duration-300 group shadow-sm">
+                <div class="flex items-center gap-4">
+                    <div class="p-3 rounded-xl bg-[#FF0000]/10 text-[#FF0000] group-hover:scale-105 transition-transform duration-300">
+                        <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-sm group-hover:text-oreange transition-colors lowercase">youtube channel</h3>
+                        <p class="text-xs text-slate-500 lowercase">watch my animations and dev videos.</p>
+                    </div>
+                </div>
+                <div class="text-slate-400 group-hover:text-oreange group-hover:translate-x-1 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </a>
+
+            <!-- Contact/Email Link -->
+            <a href="mailto:contact@oreange.com" class="glow-effect flex items-center justify-between p-4 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-oreange hover:bg-white transition-all duration-300 group shadow-sm">
+                <div class="flex items-center gap-4">
+                    <div class="p-3 rounded-xl bg-oreange-500/10 text-oreange group-hover:scale-105 transition-transform duration-300">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-sm group-hover:text-oreange transition-colors lowercase">contact me</h3>
+                        <p class="text-xs text-slate-500 lowercase">contact@oreange.com</p>
+                    </div>
+                </div>
+                <div class="text-slate-400 group-hover:text-oreange group-hover:translate-x-1 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 w-full py-8 border-t border-slate-200 bg-slate-50/60 backdrop-blur-sm">
+        <div class="max-w-xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-slate-900 tracking-wider lowercase">ore<span class="text-oreange">ange</span></span>
+                <span class="text-xs text-slate-400">2026</span>
+            </div>
+            <div class="flex gap-4 text-xs text-slate-400 lowercase">
+                <span class="hover:text-oreange transition-colors cursor-pointer">changelog</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
